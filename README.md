@@ -6,7 +6,6 @@ This repository contains a boilerplate project setup for Django and React. The p
 
 ```json
 virtualenv env
-source env/bin/activate
 pip install -r requirements.txt
 python manage.py runserver
 ```
