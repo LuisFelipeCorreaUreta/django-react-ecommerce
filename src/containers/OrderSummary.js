@@ -11,6 +11,7 @@ import {
   Message,
   Segment
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import { authAxios } from "../utils";
 import { orderSummaryURL } from "../constants";
 
@@ -33,7 +34,14 @@ class OrderSummary extends React.Component {
         this.setState({ data: res.data, loading: false });
       })
       .catch(err => {
-        this.setState({ error: err, loading: false });
+        if (err.response.status === 404) {
+          this.setState({
+            error: "You currently do not have an order",
+            loading: false
+          });
+        } else {
+          this.setState({ error: err, loading: false });
+        }
       });
   };
 
@@ -103,9 +111,11 @@ class OrderSummary extends React.Component {
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="5">
-                  <Button floated="right" color="yellow">
-                    Checkout
-                  </Button>
+                  <Link to="/checkout">
+                    <Button floated="right" color="yellow">
+                      Checkout
+                    </Button>
+                  </Link>
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
